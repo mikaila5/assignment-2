@@ -139,7 +139,6 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		{
 			CMCheckersBoard[i][j] = 0; 
 		}
-		cout << endl;
 	}
 	
 	//places all the white mules, 2's
@@ -149,47 +148,29 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		{
 			CMCheckersBoard[i][j] = 2; 
 		}
-		cout << endl;
 	}
 	//places all the white soldiers, 1's
-	for (i=1; i<4; i+=2) 
+	for (i=1; i<(numRowsInBoard/2-2)+1; i+=2) 
 	{
 		for (j=0; j<numRowsInBoard; j+=2)
 		{
-			CMCheckersBoard[i][j] = 0;
+			CMCheckersBoard[i][j] = 1;
 		}
-		cout << endl;
 	}
-		for (i=2; i<4; i+=2) 
+		for (i=2; i<(numRowsInBoard/2-2)+1; i+=2) 
 	{
 		for (j=1; j<numRowsInBoard; j+=2)
 		{
-			CMCheckersBoard[i][j] = 0;
-		}
-		cout << endl;
+			CMCheckersBoard[i][j] = 1;
+		}	
 	}
-		
-	for (i=2; i<4; i+=2) 
+	for (i=2; i<(numRowsInBoard/2-2)+1; i+=2) 
 	{
 		for (j=1; j<numRowsInBoard; j+=2)
 		{
-			CMCheckersBoard[i][j] = 0;
+			CMCheckersBoard[i][j] = 1;
 		}
-		cout << endl;
 	}
-	//places all the red soldiers, 4's
-		for (i=2; i<4; i+=2) 
-	{
-		for (j=1; j<numRowsInBoard; j+=2)
-		{
-			CMCheckersBoard[i][j] = 0;
-		}
-		cout << endl;
-	}
-
-
-	
-
 	//places all the red mules, 5's
 		i= numRowsInBoard;
 	while (i==numRowsInBoard)
@@ -198,31 +179,24 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		{
 			CMCheckersBoard[i][j] = 5;
 		}
-		cout << endl;
 		i--;
 	}
-	//places all the res soldiers, 4's
-	for (i=numRowsInBoard-1; i>numRowsInBoard-4; i-=1)
+	//places all the red soldiers, 4's
+	for (i=numRowsInBoard-1; i>(numRowsInBoard/2-2)+1; i-=1)
 	{
 		for (j=1; j<numRowsInBoard; j+=2)
 		{
 			CMCheckersBoard[i][j] = 4;
 		}
-		cout << endl;
 		i--;
 	}
-	for (i=numRowsInBoard-2; i>numRowsInBoard-4; i-=1)
+	for (i=numRowsInBoard-2; i>(numRowsInBoard/2-2)+1; i-=1)
 	{
 		for (j=0; j<numRowsInBoard; j+=2)
 		{
 			CMCheckersBoard[i][j] = 4;
 		}
-		cout << endl;
 		i--;
 	}
 
 }
-
-
-
-
