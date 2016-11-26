@@ -117,8 +117,8 @@ int main()
 	}
 
 	InitializeBoard(myCMCheckersBoard, numRowsInBoard);
-	//DisplayBoard();
-
+	
+	DisplayBoard(myCMCheckersBoard, numRowsInBoard);
 	
 
 
@@ -172,8 +172,8 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		}
 	}
 	//places all the red mules, 5's
-		i= numRowsInBoard;
-	while (i==numRowsInBoard)
+		i= numRowsInBoard-1;
+	while (i==numRowsInBoard-1)
 	{
 		for (j=0; j<numRowsInBoard; j+=2)
 		{
@@ -182,7 +182,7 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		i--;
 	}
 	//places all the red soldiers, 4's
-	for (i=numRowsInBoard-1; i>(numRowsInBoard/2-2)+1; i-=1)
+	for (i=numRowsInBoard-2; i>(numRowsInBoard/2-2)+2; i-=1)
 	{
 		for (j=1; j<numRowsInBoard; j+=2)
 		{
@@ -190,7 +190,7 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		}
 		i--;
 	}
-	for (i=numRowsInBoard-2; i>(numRowsInBoard/2-2)+1; i-=1)
+	for (i=numRowsInBoard-3; i>(numRowsInBoard/2-2)+2; i-=1)
 	{
 		for (j=0; j<numRowsInBoard; j+=2)
 		{
@@ -198,5 +198,50 @@ void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int nu
 		}
 		i--;
 	}
-
 }
+
+void DisplayBoard( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE],
+int numRowsInBoard)
+{
+	int counter = 0;
+
+	for (int i=0; i<numRowsInBoard; i++) 
+	{
+		for (int j=0; j<numRowsInBoard; j++)
+		{
+			if (CMCheckersBoard[i][j] == 1)
+			{
+				cout << setw(4) << "WS";
+			}
+			else if (CMCheckersBoard[i][j] == 2)
+			{
+				cout << setw(4) << "WM";
+			}
+			else if (CMCheckersBoard[i][j] == 3)
+			{
+				cout << setw(4) << "WK";
+			}
+			else if (CMCheckersBoard[i][j] == 4)
+			{
+				cout << setw(4) << "RS";
+			}
+			else if (CMCheckersBoard[i][j] == 5)
+			{
+				cout << setw(4) << "RM";
+			}
+			else if (CMCheckersBoard[i][j] == 6)
+			{
+				cout << setw(4) << "RK";
+			}
+			else 
+			{
+				cout << setw(4) << counter;
+			}
+			counter ++;
+		}
+		
+		cout << endl;
+	}
+	
+}
+ 
