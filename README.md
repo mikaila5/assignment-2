@@ -1,1 +1,228 @@
-# assignment-2
+// assignment-2
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <fstream>
+
+using namespace std;
+
+//global constants
+const int MAX_ARRAY_SIZE = 18;
+const int MIN_ARRAY_SIZE = 8;
+const int MAX_PIECES = 72; 
+const int NOPLAYER = 0;
+const int WHITEWINS = 1;
+const int REDWINS = 2;
+const int NOONEWINS = 0;
+const int WHITESOLDIER = 1;
+const int WHITEMULE = 2;
+const int WHITEKING = 3;
+const int REDSOLDIER = 4;
+const int REDMULE = 5;
+const int REDKING = 6;
+const int WHITEPLAYER = 1;
+const int REDPLAYER = 2;
+
+//functions to be used in main
+void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE],
+                             int numRowsInBoard );
+ 
+void DisplayBoard( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], 
+int numRowsInBoard);
+ 
+int CountJumps( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], 
+int numRowsInBoard, int player, int xLocArray[], int yLocArray[] );
+ 
+bool CheckList( int inArray1[], int inArray2[], int xIndex, int yindex);
+ 
+int CountMove1Squares( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE],
+int numRowsInBoard, int player, int xLocArray[],  int yLocArray[] );
+ 
+bool IsMove1Square( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], 
+int numRowsInBoard, int player, int xLoc, int yLoc);
+ 
+bool IsJump( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], 
+int numRowsInBoard, int player, int xLoc, int yLoc);
+ 
+bool MakeMove( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], 
+int numRowsInBoard, int player, int fromSquareNum, 
+int toSquareNum, bool &jumped );
+ 
+bool CheckWin(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int numRowsInBoard);
+
+int main()
+{
+	//arrays
+	int myCMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = {0};
+	int xIndicesMove[MAX_PIECES] = {0};
+	int yIndicesMove[MAX_PIECES] = {0};
+	int xIndicesJump[MAX_PIECES] = {0};
+	int yIndicesJump[MAX_PIECES] = {0};
+
+	//variables
+	int numRowsInBoard = 0;
+	int counter = 0;
+
+	cout << "Enter the number of squares along each edge of the board: ";
+	
+
+	while (counter <= 2)
+	{
+		if (!(cin >> numRowsInBoard))
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "ERROR:  Board size is not an integer" << endl << "8 <= number of squares <= 18";
+		cout << endl << "Enter the number of squares along each edge of the board: ";
+		counter++;
+		if (counter > 2) 
+	{
+		cout << endl << "ERROR:  Too many errors entering the size of the board ";
+		return 1;
+	}
+		//cin >> numRowsInBoard;
+		continue;
+
+		
+	}
+	if (numRowsInBoard > 18)
+	{
+		counter++;
+		cout << "ERROR:  Board size too large" << endl << "8 <= number of squares <= 18";
+		cout << endl << "Enter the number of squares along each edge of the board: ";
+		cin >> numRowsInBoard;
+	}
+	else if (numRowsInBoard < 8)
+	{
+		counter++;
+		cout << "ERROR:  Board size too small." << endl << "8 <= number of squares <= 18";
+		cout << endl << "Enter the number of squares along each edge of the board: ";
+		cin >> numRowsInBoard;
+	}
+	else if (numRowsInBoard%2 != 0)
+	{
+		counter++;
+		cout << "ERROR:  Board size odd" << endl << "8 <= number of squares <= 18";
+		cout << endl << "Enter the number of squares along each edge of the board: ";
+		cin >> numRowsInBoard;
+	}
+	else break;
+	if (counter > 2) 
+	{
+		counter++;
+		cout << endl << "ERROR:  Too many errors entering the size of the board ";
+		return 1;
+	}
+	
+	}
+
+	InitializeBoard(myCMCheckersBoard, numRowsInBoard);
+	//DisplayBoard();
+
+	
+
+
+
+
+
+	return 0;
+}
+
+void InitializeBoard(int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int numRowsInBoard)
+{
+	int i =0;
+	int j = 0;
+	//sets all to zero
+	for (i=0; i<numRowsInBoard; i++) 
+	{
+		for (j=0; j<numRowsInBoard; j++)
+		{
+			CMCheckersBoard[i][j] = 0; 
+		}
+		cout << endl;
+	}
+	
+	//places all the white mules, 2's
+		for (i=0; i<1; i++) 
+	{
+		for (j=1; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 2; 
+		}
+		cout << endl;
+	}
+	//places all the white soldiers, 1's
+	for (i=1; i<4; i+=2) 
+	{
+		for (j=0; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 0;
+		}
+		cout << endl;
+	}
+		for (i=2; i<4; i+=2) 
+	{
+		for (j=1; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 0;
+		}
+		cout << endl;
+	}
+		
+	for (i=2; i<4; i+=2) 
+	{
+		for (j=1; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 0;
+		}
+		cout << endl;
+	}
+	//places all the red soldiers, 4's
+		for (i=2; i<4; i+=2) 
+	{
+		for (j=1; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 0;
+		}
+		cout << endl;
+	}
+
+
+	
+
+	//places all the red mules, 5's
+		i= numRowsInBoard;
+	while (i==numRowsInBoard)
+	{
+		for (j=0; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 5;
+		}
+		cout << endl;
+		i--;
+	}
+	//places all the res soldiers, 4's
+	for (i=numRowsInBoard-1; i>numRowsInBoard-4; i-=1)
+	{
+		for (j=1; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 4;
+		}
+		cout << endl;
+		i--;
+	}
+	for (i=numRowsInBoard-2; i>numRowsInBoard-4; i-=1)
+	{
+		for (j=0; j<numRowsInBoard; j+=2)
+		{
+			CMCheckersBoard[i][j] = 4;
+		}
+		cout << endl;
+		i--;
+	}
+
+}
+
+
+
+
