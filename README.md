@@ -285,108 +285,574 @@ int CountJumps( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE], int numRows
 bool IsJump( int CMCheckersBoard[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE],
 			int numRowsInBoard, int player, int xLoc, int yLoc)
 {
-	int tracker = 0;
+	int Rtracker = 0;
+	int Ltracker = 0;
+	int RKtracker = 0;
+	int LKtracker = 0;
 	int newXloc = 0;
 	int newYloc = 0;
-	if (CMCheckersBoard[yLoc][xloc] != 0)
+
+
+	if (CMCheckersBoard[yLoc][xLoc] != 0)
 	{
-		if (player == 1) 
+		///////////////////////////////////////////////////////////////////////////////////
+		// WHITE PLAYER ///////////////////////////////////////////////////////////////////
+		if (player == 1)  //white player coming from the top
 		{
-			newXloc = numRowsInBoard-1;
-			//checking the right side
-			if (xLoc == 0)
+			if (xLoc == 0)  ////////////////////////////////////////////////////////////
 			{
+				newXloc = numRowsInBoard-1;
+				//checking the right side for oponents piece
 				if (CMCheckersBoard[yLoc+1][newXloc] == 4 || CMCheckersBoard[yLoc+1][newXloc] == 5 
 					||CMCheckersBoard[yLoc+1][newXloc] == 6)
 				{
-					tracker++;
+					Rtracker++;
 				}	 
-
-				if (CMCheckersBoard[yLoc+2][newXloc-1] == 4 || CMCheckersBoard[yLoc+2][newXloc-1] == 5 
-					||CMCheckersBoard[yLoc+2][newXloc-1] == 6)
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc+2][newXloc-1] == 0)
 				{
-					tracker++;
+					Rtracker++;
+				}
+
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 4 || CMCheckersBoard[yLoc+1][xLoc+1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 6)
+				{
+					Ltracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
+				{
+					Ltracker++;
+				}
+				//IF THE CHECKER IS A WHITE KING
+				if (CMCheckersBoard[yLoc][xLoc] == 3) 
+				{
+					newXloc = numRowsInBoard-1;
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc-1][newXloc] == 1 || CMCheckersBoard[yLoc-1][newXloc] == 2
+						||CMCheckersBoard[yLoc-1][newXloc] == 3)
+					{
+						RKtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][newXloc+1] == 0)
+					{
+						RKtracker++;
+					}
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+					{
+						LKtracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+					{
+						LKtracker++;
+					}
 				}
 			}
 
 
-			else if (xLoc == 1)
+			else if (xLoc == 1) ////////////////////////////////////////////////////////////////////////
 			{
-				if (CMCheckersBoard[yLoc+1][xLoc] == 4 || CMCheckersBoard[yLoc+1][xLoc] == 5 
-					||CMCheckersBoard[yLoc+1][xLoc] == 6)
-				{
-					tracker++;
-				}
-				if (CMCheckersBoard[yLoc+2][newXloc-1] == 4 || CMCheckersBoard[yLoc+2][newXloc-1] == 5 
-					||CMCheckersBoard[yLoc+2][newXloc-1] == 6)
-				{
-					tracker++;
-				}
-			}
-			else 
-			{
+				newXloc = numRowsInBoard-1;
+				//checking the right side for oponents piece
 				if (CMCheckersBoard[yLoc+1][xLoc-1] == 4 || CMCheckersBoard[yLoc+1][xLoc-1] == 5 
 					||CMCheckersBoard[yLoc+1][xLoc-1] == 6)
 				{
-					tracker++;
+					Rtracker++;
 				}
-				if (CMCheckersBoard[yLoc+2][xLoc-2] == 4 || CMCheckersBoard[yLoc+2][xLoc-2] == 5 
-					||CMCheckersBoard[yLoc+2][xLoc-2] == 6)
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc+2][newXloc] == 0)
 				{
-					tracker++;
+					Rtracker++;
+				}
+
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 4 || CMCheckersBoard[yLoc+1][xLoc+1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 6)
+				{
+					Ltracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
+				{
+					Ltracker++;
+				}
+				//IF THE CHECKER IS A WHITE KING
+				if (CMCheckersBoard[yLoc][xLoc] == 3) 
+					//checking the right side for oponents piece
+				{
+					newXloc = numRowsInBoard-1;
+					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc-1][xLoc+1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+					{
+						RKtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][newXloc] == 0)
+					{
+						RKtracker++;
+					}
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+					{
+						LKtracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+					{
+						LKtracker++;
+					}
+				}
+
+
+			}
+			else if (xLoc == numRowsInBoard-1) /////////////////////////////////////////////////
+			{
+				//checking the right side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc-1] == 4 || CMCheckersBoard[yLoc+1][xLoc-1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc-1] == 6)
+				{
+					Rtracker++;
+				}
+				//checking the right side for empty piece
+				if (CMCheckersBoard[yLoc+2][xLoc-2] == 0)
+				{
+					Rtracker++;
+				}
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][newXloc] == 4 || CMCheckersBoard[yLoc+1][newXloc] == 5 
+					||CMCheckersBoard[yLoc+1][newXloc] == 6)
+				{
+					Ltracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][newXloc+1] == 0)
+				{
+					Ltracker++;
+				}
+				//IF THE CHECKER IS A WHITE KING
+				if (CMCheckersBoard[yLoc][xLoc] == 3) 
+				{
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+					{
+						RKtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+					{
+						RKtracker++;
+					}
+					newXloc = numRowsInBoard-1;
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][newXloc] == 1 || CMCheckersBoard[yLoc-1][newXloc] == 2
+						||CMCheckersBoard[yLoc-1][newXloc] == 3)
+					{
+						LKtracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][newXloc-1] == 0)
+					{
+						LKtracker++;
+					}
+				}
+
+			}
+			else if (xLoc == numRowsInBoard-2) //////////////////////////////////////////
+			{
+				//checking the right side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc-1] == 4 || CMCheckersBoard[yLoc+1][xLoc-1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc-1] == 6)
+				{
+					Rtracker++;
+				}
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc-2] == 0)
+				{
+					Rtracker++;
+				}
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 4 || CMCheckersBoard[yLoc+1][xLoc+1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 6)
+				{
+					Ltracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][newXloc] == 0)
+				{
+					Ltracker++;
+				}
+				//IF THE CHECKER IS A WHITE KING
+				if (CMCheckersBoard[yLoc][xLoc] == 3) 
+				{
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc-1][xLoc+1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+					{
+						RKtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc+2] == 0)
+					{
+						RKtracker++;
+					}
+					newXloc = numRowsInBoard-1;
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+					{
+						LKtracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][newXloc] == 0)
+					{
+						LKtracker++;
+					}
 				}
 			}
 
+			else  ////////////////////////////////////////////////////////////////////
+			{
+				//checking the right side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc-1] == 4 || CMCheckersBoard[yLoc+1][xLoc-1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc-1] == 6)
+				{
+					Rtracker++;
+				}
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc-2] == 0)
+				{
+					Rtracker++;
+				}
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 4 || CMCheckersBoard[yLoc+1][xLoc+1] == 5 
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 6)
+				{
+					Ltracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
+				{
+					Ltracker++;
+				}
+				//IF THE CHECKER IS A WHITE KING
+				if (CMCheckersBoard[yLoc][xLoc] == 3) 
+				{
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+					{
+						RKtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc+2] == 0)
+					{
+						RKtracker++;
+					}
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+					{
+						LKtracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+					{
+						LKtracker++;
+					}
+				}
+
+			}
+
 		}
-		else if (player == 2)
+		///////////////////////////////////////////////////////////////////////////
+		// RED PLAYER //////////////////////////////////////////////////////////////
+		else if (player == 2)//red player, going up from the bottom
 		{
-			newXloc = 0;
-			//checking the right side
-			if (xLoc == numRowsInBoard-1)
+
+			if (xLoc == numRowsInBoard-1) ///////////////////////////////////////////////////////
 			{ 
+				//checking the right side for oponents piece
 				if (CMCheckersBoard[yLoc-1][newXloc] == 1 || CMCheckersBoard[yLoc-1][newXloc] == 2
 					||CMCheckersBoard[yLoc-1][newXloc] == 3)
 				{
-					tracker++;
+					Rtracker++;
 				}
-				if (CMCheckersBoard[yLoc-2][newXloc+1] == 1 || CMCheckersBoard[yLoc-2][newXloc1] == 2
-					||CMCheckersBoard[yLoc-2][newXloc+1] == 3)
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc-2][newXloc+1] == 0)
 				{
-					tracker++;
+					Rtracker++;
 				}
-				else if (xLoc == numRowsInBoard-2)
-				{ 
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+					||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+				{
+					Ltracker++;
+				}
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+				{
+					Ltracker++;
+				}
+				//IF THE CHECKER IS A RED KING
+				if (CMCheckersBoard[yLoc][xLoc] == 6) 
+				{
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc+1][newXloc] == 1 || CMCheckersBoard[yLoc+1][newXloc] == 2 
+						||CMCheckersBoard[yLoc+1][newXloc] == 3)
+					{
+						RKtracker++;
+					}	 
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc+2][newXloc+1] == 0)
+					{
+						RKtracker++;
+					}
 
-					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2
-						||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc+1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc+1] == 2 
+						||CMCheckersBoard[yLoc+1][xLoc+1] == 3)
 					{
-						tracker++;
-					}
-					if (CMCheckersBoard[yLoc-2][newXloc] == 1 || CMCheckersBoard[yLoc+2][newXloc] == 2
-						||CMCheckersBoard[yLoc-2][newXloc] == 3)
+						LKtracker++;
+					}	 
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
 					{
-						tracker++;
+						LKtracker++;
 					}
 				}
-				else 
-				{
-					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2
+
+				else if (xLoc == numRowsInBoard-2) ////////////////////////////////////////////////
+				{ 
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc-1][xLoc+1] == 2
 						||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
 					{
-						tracker++;
+						Rtracker++;
 					}
-					if (CMCheckersBoard[yLoc-2][xLoc+2] == 1 || CMCheckersBoard[yLoc+2][xLoc-2] == 2
-						||CMCheckersBoard[yLoc-2][xLoc+2] == 3)
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][newXloc] == 0)
 					{
-						tracker++;
+						Rtracker++;
+					}
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+					{
+						Ltracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+					{
+						Ltracker++;
+					}
+					//IF THE CHECKER IS A RED KING
+				if (CMCheckersBoard[yLoc][xLoc] == 6) 
+				{
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc+1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc+1] == 2
+						||CMCheckersBoard[yLoc+1][xLoc+1] == 3)
+					{
+						RKtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc+2][newXloc] == 0)
+					{
+						RKtracker++;
+					}
+
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc+1][xLoc-1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2 
+						||CMCheckersBoard[yLoc+1][xLoc-1] == 3)
+					{
+						LKtracker++;
+					}	 
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc+2][xLoc-2] == 0)
+					{
+						LKtracker++;
+					}
+				}
+				}
+				else if (xLoc == 0) ///////////////////////////////////////////////////////////////
+				{
+					//checking the right side for oponents piece
+					if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc-1][xLoc+1] == 2
+						||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+					{
+						Rtracker++;
+					}
+					//checking the right side for empty space
+					if (CMCheckersBoard[yLoc-2][xLoc+2] == 0)
+					{
+						Rtracker++;
+					}
+					newXloc = numRowsInBoard-1;
+					//checking the left side for oponents piece
+					if (CMCheckersBoard[yLoc-1][newXloc] == 1 || CMCheckersBoard[yLoc-1][newXloc] == 2
+						||CMCheckersBoard[yLoc-1][newXloc] == 3)
+					{
+						Ltracker++;
+					}
+					//checking the left side for empty space
+					if (CMCheckersBoard[yLoc-2][newXloc-1] == 0)
+					{
+						Ltracker++;
+					}
+				//IF THE CHECKER IS A RED KING
+				if (CMCheckersBoard[yLoc][xLoc] == 6) 
+				{
+					newXloc = numRowsInBoard-1;
+					//checking the right side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc+1] == 2 
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 3)
+				{
+					RKtracker++;
+				}
+				//checking the right side for empty piece
+				if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
+				{
+					RKtracker++;
+				}
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][newXloc] == 1 || CMCheckersBoard[yLoc+1][newXloc] == 2 
+					||CMCheckersBoard[yLoc+1][newXloc] == 3)
+				{
+					LKtracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][newXloc-1] == 0)
+				{
+					LKtracker++;
+				}
+
+					else if (xLoc == 1) /////////////////////////////////////////////////////////////////
+					{
+						//checking the right side for oponents piece
+						if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc-1][xLoc+1] == 2
+							||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+						{
+							Rtracker++;
+						}
+						//checking the right side for empty space
+						if (CMCheckersBoard[yLoc-2][xLoc+2] == 0)
+						{
+							Rtracker++;
+						}
+						newXloc = numRowsInBoard-1;
+						//checking the left side for oponents piece
+						if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+							||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+						{
+							Ltracker++;
+						}
+						//checking the left side for empty space
+						if (CMCheckersBoard[yLoc-2][newXloc] == 0)
+						{
+							Ltracker++;
+						}
+							//IF THE CHECKER IS A RED KING
+				if (CMCheckersBoard[yLoc][xLoc] == 6) 
+				{
+					newXloc = numRowsInBoard;
+					//checking the right side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc+1] == 2 
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 3)
+				{
+					RKtracker++;
+				}
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
+				{
+					RKtracker++;
+				}
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc-1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2 
+					||CMCheckersBoard[yLoc+1][xLoc-1] == 3)
+				{
+					LKtracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][newXloc] == 0)
+				{
+					LKtracker++;
+				}
+				}
+					}
+					else  ////////////////////////////////////////////////////////////////////////
+					{
+						//checking the right side for oponents piece
+						if (CMCheckersBoard[yLoc-1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2
+							||CMCheckersBoard[yLoc-1][xLoc+1] == 3)
+						{
+							Rtracker++;
+						}
+						//checking the right side for empty space
+						if (CMCheckersBoard[yLoc-2][xLoc+2] == 0)
+						{
+							Rtracker++;
+						}
+						//checking the left side for oponents piece
+						if (CMCheckersBoard[yLoc-1][xLoc-1] == 1 || CMCheckersBoard[yLoc-1][xLoc-1] == 2
+							||CMCheckersBoard[yLoc-1][xLoc-1] == 3)
+						{
+							Ltracker++;
+						}
+						//checking the left side for empty space
+						if (CMCheckersBoard[yLoc-2][xLoc-2] == 0)
+						{
+							Ltracker++;
+						}
+						//IF THE CHECKER IS A RED KING
+				if (CMCheckersBoard[yLoc][xLoc] == 6) 
+				{
+					//checking the right side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc+1] == 1 || CMCheckersBoard[yLoc+1][xLoc+1] == 2
+					||CMCheckersBoard[yLoc+1][xLoc+1] == 3)
+				{
+					RKtracker++;
+				}
+				//checking the right side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc+2] == 0)
+				{
+					RKtracker++;
+				}
+				//checking the left side for oponents piece
+				if (CMCheckersBoard[yLoc+1][xLoc-1] == 1 || CMCheckersBoard[yLoc+1][xLoc-1] == 2 
+					||CMCheckersBoard[yLoc+1][xLoc-1] == 3)
+				{
+					LKtracker++;
+				}	 
+				//checking the left side for empty space
+				if (CMCheckersBoard[yLoc+2][xLoc-2] == 0)
+				{
+					LKtracker++;
+				}
+				}
+
 					}
 				}
 			}
-		}
-		if (tracker == 2)
-		{
-			return true;
-		}
 
+			// returning true if there is an available jump
+
+			if (Rtracker == 2)
+			{
+				return true;
+			}
+			if  (Ltracker == 2)
+			{
+				return true;
+			}
+			//figure out what to do with the king trackers
+
+
+		}
 	}
-}
+	}
