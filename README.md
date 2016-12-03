@@ -78,6 +78,7 @@ int main()
 	bool checkJump;
 	bool checkMove;
 	bool jump;
+	bool move;
 
 	char end = '0';
 
@@ -103,7 +104,14 @@ int main()
 
 
 		}
-		if (numRowsInBoard > 18)
+		if (numRowsInBoard%2 != 0)
+		{
+			counter++;
+			cout << "ERROR:  Board size odd" << endl << "8 <= number of squares <= 18";
+			cout << endl << "Enter the number of squares along each edge of the board: "<<endl;;
+			cin >> numRowsInBoard;
+		}
+		else if (numRowsInBoard > 18)
 		{
 			counter++;
 			cout << "ERROR:  Board size too large" << endl << "8 <= number of squares <= 18";
@@ -117,13 +125,7 @@ int main()
 			cout << endl << "Enter the number of squares along each edge of the board: "<<endl;;
 			cin >> numRowsInBoard;
 		}
-		else if (numRowsInBoard%2 != 0)
-		{
-			counter++;
-			cout << "ERROR:  Board size odd" << endl << "8 <= number of squares <= 18";
-			cout << endl << "Enter the number of squares along each edge of the board: "<<endl;;
-			cin >> numRowsInBoard;
-		}
+
 		else break;
 		if (counter > 2) 
 		{
@@ -282,9 +284,31 @@ int main()
 				}
 			}
 			MakeMove( myCMCheckersBoard, numRowsInBoard, player, numfrom, numto, jump );
+			move = MakeMove( myCMCheckersBoard, numRowsInBoard, player, numfrom, numto, jump );
 			DisplayBoard(myCMCheckersBoard, numRowsInBoard);
-			
-				break;
+
+			if(move == false)
+		{
+			cerr << "ERROR: moving to that square is not legal, Try again" << endl;
+			continue;
+		}
+			else if (move == true)
+			{
+				if (jump == true)
+				{ 
+					if (checkJump == true)
+					{
+						numfrom = numto;
+						cout << "You can jump again,  Please enter the next square you wish to move your checker to" << endl;
+						cin >> numto;
+
+					}
+				else
+					break;
+				}
+				else
+					break;
+			}
 		}
 
 
@@ -416,10 +440,31 @@ int main()
 				continue;
 			}
 		}
-		MakeMove( myCMCheckersBoard, numRowsInBoard, player, numfrom, numto, jump );
+		MakeMove(myCMCheckersBoard, numRowsInBoard, player, numfrom, numto, jump);
+		move = MakeMove(myCMCheckersBoard, numRowsInBoard, player, numfrom, numto, jump);
 		DisplayBoard(myCMCheckersBoard, numRowsInBoard);
-		
-		break;
+
+		if(move == false)
+		{
+			cerr << "ERROR: moving to that square is not legal, Try again" << endl;
+			continue;
+		}
+		else if (move == true)
+			{
+				if (jump == true)
+				{ 
+					if (checkJump == true)
+					{
+						numfrom = numto;
+						cout << "You can jump again,  Please enter the next square you wish to move your checker to" << endl;
+						cin >> numto;
+					}
+				else
+					break;
+				}
+				else
+					break;
+			}
 	}
 counter++;
 }
